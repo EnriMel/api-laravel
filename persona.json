@@ -1,0 +1,20 @@
+{
+    "nome": "Luca Rossi",
+    "age": 30,
+    "isEmployee": true,
+    "address": {
+        "street": "Via Napoli",
+        "city": "Bari",
+        "zipcode": "20100"
+    },
+    "children": [
+        {
+            "name": "Luca",
+            "age": 5
+        },
+        {
+            "name": "Sofia",
+            "age": 3
+        }
+    ]
+}
