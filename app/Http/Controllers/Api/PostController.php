@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 
+use function Pest\Laravel\post;
+
 class PostController extends Controller
 {
     /**
@@ -49,7 +51,34 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required',
+            'is_draft' => 'boolean',
+            'published_at' => 'nullable|date',
+        ]);
+
+        $post->update($validated);
+
+        return response()->json($post, Response::HTTP_OK);
+    }
+
+    public function patch(Request $request, string $id)
+    {
+        $post = Post::findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'sometimes|string|max:255',
+            'body' => 'sometimes',
+            'is_draft' => 'sometimes|boolean',
+            'published_at' => 'sometimes|nullable|date',
+        ]);
+
+        $post->update($validated);
+
+        return response()->json($post, Response::HTTP_OK);
     }
 
     /**
