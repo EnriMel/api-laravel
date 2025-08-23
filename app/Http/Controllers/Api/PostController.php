@@ -14,9 +14,40 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::all();
+        // senza filtri e paginazione
+        // $posts = Post::all();
+        // return response()->json($posts, Response::HTTP_OK);
+
+        // con filtri e paginazione
+        $query = Post::query(); // prepariamo la query
+
+        // filtro per bozza o pubblicato
+        if($request->has('is_draft')) {
+            $query->where('is_draft', $request->get('is_draft'));
+        }
+
+        // filtro per data esatta
+        if($request->has('published_at')) {
+            $query->whereDate('published_at', $request->get('published_at'));
+        }
+
+        // filtro per data maggiore di (>=)
+        if($request->has('published_at_gte')) {
+            $query->whereDate('published_at', '>=', $request->get('published_at_gte'));
+        }
+
+        // filtro per data minore di (<=)
+        if($request->has('published_at_lte')) {
+            $query->whereDate('published_at', '<=', $request->get('published_at_lte'));
+        }
+
+        // quanti per pagina
+        $perPage = $request->get('per_page', 10);
+
+        $posts = $query->paginate($perPage);
+
         return response()->json($posts, Response::HTTP_OK);
     }
 
