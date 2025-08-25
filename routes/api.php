@@ -5,15 +5,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\PostController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:sanctum');
 
-Route::post('login',  [AuthController::class, 'login']);
+// Route::post('login',  [AuthController::class, 'login']);
 
-Route::get('/posts', [PostController::class, 'index'])->middleware('auth:sanctum');
-Route::get('/posts/{id}', [PostController::class, 'show']);
-Route::post('/posts', [PostController::class, 'store']);
-Route::put('/posts/{id}', [PostController::class, 'update']);
-Route::patch('/posts/{id}', [PostController::class, 'patch']);
-Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+// Route::get('/posts', [PostController::class, 'index'])->middleware('auth:sanctum');
+// Route::get('/posts/{id}', [PostController::class, 'show']);
+// Route::post('/posts', [PostController::class, 'store']);
+// Route::put('/posts/{id}', [PostController::class, 'update']);
+// Route::patch('/posts/{id}', [PostController::class, 'patch']);
+// Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+
+Route::prefix('v1')->group(base_path('routes/api_v1.php'));
+Route::prefix('v2')->group(base_path('routes/api_v2.php'));

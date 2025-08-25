@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V2;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -22,11 +22,6 @@ class PostController extends Controller
 
         // con filtri e paginazione
         $query = Post::query(); // prepariamo la query
-
-        // filtro per bozza o pubblicato
-        if($request->has('is_draft')) {
-            $query->where('is_draft', $request->get('is_draft'));
-        }
 
         // filtro per data esatta
         if($request->has('published_at')) {
